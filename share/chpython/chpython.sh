@@ -1,7 +1,7 @@
 CHPYTHON_VERSION='0.1.0.dev'
 PYTHONS=()
 
-[ -d "${HOME}/.pythons" ] && PYTHONS+=("${HOME}/.pythons"/*)
+[ -d "${HOME}/.pythonz/pythons" ] && PYTHONS+=("${HOME}/.pythonz/pythons"/*)
 
 function _chpython_exec {
   local python
@@ -84,18 +84,18 @@ EOS
     system)
       _chpython_reset
       ;;
-    '')
-      local dir python
-      for dir in ${PYTHONS[@]}; do
-        dir="${dir%%/}"
-        python=${dir##*/}
-        if [[ "$dir" == "$CHPYTHON_ROOT" ]]; then
-          echo " * ${python}"
-        else
-          echo "   ${python}"
-        fi
-      done
-      ;;
+	"")
+	local dir python
+			for dir in "${PYTHONS[@]}"; do
+				dir="${dir%%/}"; python="${dir##*/}"
+				if [[ "$dir" == "$CHPYTHON_ROOT" ]]; then
+					echo " * ${python} " #${RUBYOPT}"
+				else
+					echo "   ${python}"
+				fi
+
+			done
+    ;;
     *)
       local match
       match=$(_chpython_select $1)
